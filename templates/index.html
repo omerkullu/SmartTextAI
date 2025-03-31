@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Uygulaması</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        function toggleQuestionBox() {
+            var selectedOption = document.getElementById("option").value;
+            var questionBox = document.getElementById("question_box");
+
+            if (selectedOption === "qa") {
+                questionBox.style.display = "block";
+            } else {
+                questionBox.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <form method="POST">
+            <label for="user_input">Please provide an input:</label>
+            <input type="text" id="user_input" name="user_input" required>
+            
+            <label for="option">Options:</label>
+            <select id="option" name="option" onchange="toggleQuestionBox()" required>
+                <option value="summarization">Summarization</option>
+                <option value="qa">QA</option>
+            </select>
+
+            <div id="question_box" style="display: none;">
+                <label for="user_question">Write your question:</label>
+                <textarea id="user_question" name="user_question" rows="4" cols="50"></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Result:</h2>
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
